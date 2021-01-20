@@ -1,0 +1,30 @@
+.post{
+    width:600px;
+
+}
+.post-p{
+    width:100%;
+}
+.post-button{
+    float:right;
+}
+.a{
+    background:darkgrey;
+    padding-left:10px;
+    padding-top:20px;
+    width:1075px;
+}
+header{
+height:40px;
+background-color: #C9FFC3;
+font-family: normal;
+font-size: 12px;
+}
+a{
+    text-decoration: none;
+    background:darkgrey;
+}
+
+body{
+    background-color: rgb(67, 130, 247);
+}
