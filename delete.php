@@ -1,8 +1,6 @@
 
-
-
 <?php
-    $i = $_GET['i'];
+    $i = $_POST['id'];
     $file   = file( "news.txt");
     unset($file[$i]);
     file_put_contents("news.txt", $file);

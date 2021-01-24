@@ -17,12 +17,20 @@
 
     if( !empty($_POST['submit']) ) {
         // 表示名の入力チェック
-        if( empty($_POST['title'])  || empty($_POST['text'])) {
-            $error_message[] = '表示名を入力してください。';
-            $alert = "<script type='text/javascript'>alert('入力してください');</script>";
-            echo $alert;
+        if( empty($_POST['title'])  ) {
+            $error_message[] = '●タイトルを表示してください';
+
+            echo '●タイトルを表示してください';
         }
-        //fopen(message.txt, "r" )
+        if(  empty($_POST['text'])  ) {
+            $error_message[] = '●記事を入力してください。';
+            echo  '●記事を表示してください';
+        }
+        
+        if ( mb_strlen($_POST['title']) > 30){
+            $error_message[] = '●タイトルは30字以内で！';
+            echo '●タイトルは30字以内で！';
+        }
         //一つ目のパラメータはファイル名を含めたパスを指定し、2つ目のパラメータには「モード」を指定する。
         //2つ目のモードは用途に応じて様々な値があり、読み込みだけを行う[r」、書き込みを行う「w」、「a」などが用意されています。
         if( empty($error_message) ) {
@@ -60,13 +68,8 @@
         // ファイルを閉じる
         fclose( $file_handle);
     }
-    if( !empty( $_POST['delete.$j'])){
-    $file   = file( $id .".txt");
-    unset($file[$j]);
-    file_put_contents($id .".txt", $file);
-    }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,63 +78,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="index.css" type="text/css" rel="stylesheet">
     <title>Document</title>
-    <style>
-        .post{
-            width:100%;
-            border-bottom: solid white 1px;
-            padding-bottom: 10px;
-        }
-        .post-p{
-            width:100%;
-        }
-        .post-button{
-            float:right;
-        }
-        .box{
-            background-color:white;
-            padding-left:10px;
-            padding-top:20px;
-            width:1075px;
-            color:black;
-            text-decoration: none;
-            width:100%;
-            margin-bottom:10px
-        }
-        header{
-        height:40px;
-        background-color: #C9FFC3;
-        font-family: normal;
-        font-size: 12px;
-        }
-        body{
-            background-color: rgb(67, 130, 247);
-
-        }
-        dt{
-            float:left;
-            clear:both;
-        }
-        dd{
-
-        }
-        .button{
-            float:right;
-        }
-    </style>
-
 </head>
 <header>
     <i><h1><a href="index.php">Laravel News</a><h1></1>
 </header>
 <body>
-    <?php 
-   
-       /* if ($_POST['title']>100){
-            $alert = "<script type='text/javascript'>alert('タイトルは１０字以下にしてください');</script>";
-            echo $alert;
-        };
-        */
-    ?>
 
     <h2>さぁ、最新のニュースをシェアしましょう</h2>
     <form  method="POST">
@@ -143,20 +94,10 @@
             <dd><textarea name="text" id="text" cols="50" rows="10"></textarea></dd>
             <input class="button" name="submit" type="submit" value="送信">
         </dl>
-        <!--<p>カテゴリ：</p>
-        <select name="category">
-            <option value="1">日常</option>
-            <option value="2">プログラミング</option>
-        </select>
-        <br>
-        <input type="radio" name="publish_status" value="1" checked>公開
-        <input type="radio" name="publish_status" value="2">非公開
-        <br>-->
         </div>
     </form>
     
 <h1>ニュース一覧</h1>
-<!--<p><a href="form.html">新規作成</a></p>-->
 件数:
 <?php  
 $fp = fopen( FILENAME,'r' );              
@@ -173,18 +114,12 @@ echo $count;
             echo $i;
             ?>
             <b><?php echo $column['title'] ?></b><br><br>
-            <!--<td><?php echo $column['post_at'] ?></td>-->
             <?php echo $column['text'] ?><br><br>
             <a href="detail.php?i=<?php echo $count-$i ?>" > 記事全文・コメントを見る</a><br><br>
-            <a href="delete.php?i=<?php echo $count-$i ?> ">削除</a><br><br>
-
-           <!-- <form type="get"><button name="delete"  type="submit"> 削除</button>  </form>
-            <?php 
-                /*if(!empty($_GET['delete']) ){
-                    deleteNews($column['id']);
-                }*/
-            ?>
-            -->
+            <form method="post" action="delete.php">
+                <input type="hidden" name="id" value=<?php echo $count-$i ?> >
+                <button type="submit" value="削除"　id="">削除</button>
+            </form>
     </div>
     <?php endforeach;?>
 </table>
