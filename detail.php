@@ -1,21 +1,3 @@
-<!--/*
-    ①一覧画面からidを受け取る
-    GETリクエストidをURLLにつけて送る
-
-    ②詳細ページでidを受け取る
-    PHPの$_GETでidを取得する
-
-    ③idを元にデータベースから記事を取得
-    SELECT文でプレースホルダーを使う
-
-    ④詳細ページに表示する
-    HTMLにPHPを埋め込んで表示
-    */
-    ①require_onceを使う
-    requier_once('dbc.php')
-    ②namespaceを設定する
-    ③useを使う
--->
 <?php
 $i = $_GET['i'];
 $file   = file( "news.txt");
@@ -55,7 +37,6 @@ $message1 = array(
             $alert = "<script type='text/javascript'>alert('入力してください');</script>";
             echo $alert;
         }
-        //fopen(message.txt, "r" )
         //一つ目のパラメータはファイル名を含めたパスを指定し、2つ目のパラメータには「モード」を指定する。
         //2つ目のモードは用途に応じて様々な値があり、読み込みだけを行う[r」、書き込みを行う「w」、「a」などが用意されています。
         if( empty($error_message) ) {
@@ -105,62 +86,9 @@ $message1 = array(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="detail.css" type="text/css"  rel="stylesheet">
-
-   
+    <link href="detail.css" type="text/css"  rel="stylesheet">   
     <title>Document</title>
-    <style>
-        .post{
-        border-bottom: solid white 1px;
-        padding-bottom: 10px;
-        }
-        .comment {
-        background:#d3acd4;
-        padding: 20px;
-        width:200px;
-        height:160px;
-        margin-top: 20px;
-        margin-left: 20px;
-        float: left;
-        }
-        .background1 {
-            background: #FDD;
-        }
-        .background2 {
-            background: #CDD;
-        }
-        .background3 {
-            background: #DFD;
-        }
-        .background4 {
-            background: #DCD;
-        }
-        .background5 {
-            background: #FFF;
-        }
-        header{
-            height:40px;
-            background-color:  #C9FFC3;
-            font-family: normal;
-            font-size: 12px;
-            color: darkgrey;
-        }
-        a{
-            text-decoration: none;
-        }
-
-        body{
-            background-color: rgb(85, 139, 240);
-        }
-        dl　dt{
-            float:left;
-            clear:both;
-        }
-        .submit{
-            float:right;
-            margin-right:40px;
-        }
-        </style>
+    
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <header>
@@ -217,7 +145,11 @@ $message1 = array(
                     <time><?php echo date('Y年m月d日 H:i', strtotime($value['post_date'])); ?></time>
                     <h2 color="white"><?php echo $value['view_name']; ?></h2>
                     <p><?php echo $value['message']; ?></p>
-                    <form type="post" ><a href="delete_comment.php?i=<?php echo $count -$ii  ?>&id=<?php echo $i  ?>">削除<a></form>
+                    <form method="post" action="delete_comment.php">
+                        <input type="hidden" name="i" value=<?php echo $count -$ii ?> >
+                        <input type="hidden" name="id" value=<?php echo  $i ?> >
+                        <button type="submit" value="削除"　id="">削除</button>
+                    </form>
                 </article>
             </div>
             <?php endforeach; ?>
