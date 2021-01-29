@@ -1,14 +1,12 @@
+
 <?php
-    $i = $_GET['i'];
-    $id= $_GET['id'];
-    $file   = file( $id .".txt");
-    unset($file[$i]);
-    file_put_contents($id .".txt", $file);
-    $url = "detail.php?i=" . $id;
+    require_once('function.php');
+    $numberid = $_POST['numberid'];
+    $id = $_POST['id'];
+    deleteComments($id);
+    $url = "detail.php?id=". $numberid;
     header("Location:".$url);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +15,7 @@
     <title>Document</title>
 </head>
 <body>
-<p><a href= "detail.php?i=<?php echo $id ?>">前へ戻る</a></p>
+<p><a href= "detail.php?id=<?php $id ?>">前へ戻る</a></p>
 
 </body>
 </html>

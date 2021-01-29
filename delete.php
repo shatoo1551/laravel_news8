@@ -1,11 +1,8 @@
 
-
-
 <?php
-    $i = $_GET['i'];
-    $file   = file( "news.txt");
-    unset($file[$i]);
-    file_put_contents("news.txt", $file);
+    require_once('function.php');
+    $id = $_POST['id'];
+    deleteNews($id);
     $url = "index.php";
     header("Location:".$url);
 ?>
