@@ -4,9 +4,9 @@ require_once('function.php');
 //どのデータを持ってくるかを定義
 $dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
 //データベース接続&確認 mysqli取得
-$dbh = dbConnect1($dsn);
+$dbh = dbConnect();
 //データ取得をそして格納
-$newsdata = getAllblog1($dbh);
+$newsdata = getAllNews1($dbh);
 //エラーメッセージ配列作成
 $error_message = array();
 //送信ボタンを押されたら

@@ -4,11 +4,11 @@ require_once('function.php');
 //データを定義
 $dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
 //データ接続
-$dbh = dbConnect1($dsn);
+$dbh = dbConnect();
 //indexから受け取るidを受け取る
 $id = $_GET['id'];
 //コメントデータ取得
-$comments= getAllcomments3($id);
+$comments= getAllcomments($id);
 //ニュースデータ取得
 $news= getNews($id);    
 ?>
@@ -51,8 +51,6 @@ $news= getNews($id);
     <i><h1><a href="index.php">Laravel News</a><h1></1>
 </header>
 <body>
-<?php if( empty($_POST['submit']) && !empty($_SESSION['success_message']) ): ?>
- <?php endif; ?>
         <div class="d">  
             <h2></h2>
         <b><?php echo $news['title'] ?></b><br><br>

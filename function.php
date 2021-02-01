@@ -1,28 +1,29 @@
 <?php    
 //関数①：データベース接続   
-function dbConnect1() {
-$dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
-$user= 'laravel_user';
-$pass= 'saitech3';  
-//データが機能しているか確認
-try{
-$dbh= new PDO($dsn,$user,$pass,[
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-]);
-//$eとはエラーの中身
-} catch (PODException $e) {
-//エラーメッセージを表示
-echo '接続失敗' .$e-> getMessage();
-//処理を終了
-exit();
-}
-//データに接続しているか確認 
-return $dbh;
+function dbConnect() {
+    $dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
+    $user= 'laravel_user';
+    $pass= 'saitech3';  
+    //データが機能しているか確認
+    try{
+        $dbh= new PDO($dsn,$user,$pass,[
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]);
+        //$eとはエラーの中身
+        } 
+    catch (PODException $e) {
+        //エラーメッセージを表示
+        echo '接続失敗' .$e-> getMessage();
+        //処理を終了
+        exit();
+        }
+    //データに接続しているか確認 
+    return $dbh;
 }
 
 
 //関数②：データの取得(引数なし、送り値：取得したデータ)
-function getAllBlog1($dbh ){
+function getAllNews1($dbh ){
     //echo '接続成功';
     //データを取得する
     //①SQLの取得
@@ -38,12 +39,11 @@ function getAllBlog1($dbh ){
 
 
 //関数②：PDO データ取得（簡単） pageIDによって変わる
-function getAllcomments3($id) {
+function getAllcomments($id) {
     if(empty($id)){
         exit('IDが不正です');
     }
-    $dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
-    $dbh=dbConnect1($dsn);
+    $dbh=dbConnect();
     //SQL準備
     $stmt=$dbh->prepare('SELECT * FROM comments Where newsnumber = :id');
     $stmt-> bindValue(':id', (int)$id,\PDO::PARAM_INT);
@@ -63,7 +63,7 @@ if(empty($id)){
     exit('IDが不正です');
 }
 $dsn= 'mysql:host=localhost;dbname=laravel_news;charset=utf8';
-$dbh=dbConnect1($dsn);
+$dbh=dbConnect();
 //SQL準備
 $stmt=$dbh->prepare('SELECT * FROM article Where id = :id');
 $stmt-> bindValue(':id', (int)$id,\PDO::PARAM_INT);
@@ -145,7 +145,7 @@ function deleteNews($id) {
         exit('IDが不正です');
     }
 
-    $dbh=dbConnect1();
+    $dbh=dbConnect();
     $stmt=$dbh->prepare('DELETE FROM article Where id = :id');
     $stmt-> bindValue(':id', (int)$id,\PDO::PARAM_INT);
     //SQL実行
@@ -161,7 +161,7 @@ function deleteComments($id) {
         exit('IDが不正です');
     }
 
-    $dbh=dbConnect1();
+    $dbh=dbConnect();
     $stmt=$dbh->prepare('DELETE FROM comments Where id = :id');
     $stmt-> bindValue(':id', (int)$id,\PDO::PARAM_INT);
     //SQL実行
