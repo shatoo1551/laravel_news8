@@ -1,0 +1,44 @@
+
+.comment {
+  background:#d3acd4;
+  padding: 20px;
+  width:200px;
+  height:160px;
+  margin-top: 20px;
+  margin-left: 20px;
+  float: left;
+}
+.background1 {
+  background: #FDD;
+}
+.background2 {
+  background: #CDD;
+}
+.background3 {
+  background: #DFD;
+}
+.background4 {
+  background: #DCD;
+}
+.background5 {
+  background: #FFF;
+}
+header{
+    height:40px;
+    background-color: #C9FFC3;
+    font-family: normal;
+    font-size: 12px;
+    color: darkgrey;
+}
+a{
+  text-decoration: none;
+}
+
+body{
+    background-color: rgb(85, 139, 240);
+
+}
+dt{
+  float:left;
+  clear:both;
+}
